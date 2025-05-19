@@ -1,26 +1,33 @@
-import os.path
-
 from behave import then, when
 from playwright.sync_api import expect
+
+from mavis.testing.models import (
+    ChooseImportPage,
+    DashboardPage,
+    ImportPage,
+    ImportsPage,
+    UploadImportPage,
+)
 
 
 @when("I import vaccination records from {filename}")
 def step_impl(context, filename=None):
-    page = context.playwright_page
+    dashboard_page = DashboardPage(context.playwright_page)
+    dashboard_page.import_records()
 
-    page.get_by_role("link", name="Import records").click()
+    imports_page = ImportsPage(context.playwright_page)
+    imports_page.import_records()
 
-    page.get_by_role("link", name="Import records").click()
+    choose_import_page = ChooseImportPage(context.playwright_page)
+    choose_import_page.vaccination_records()
 
-    page.get_by_role("radio", name="Vaccination records").click()
-    page.get_by_role("button", name="Continue").click()
-
-    page.get_by_label("Upload file").set_input_files(os.path.join("files", filename))
-    page.get_by_role("button", name="Continue").click()
+    upload_import_page = UploadImportPage(context.playwright_page)
+    upload_import_page.upload(filename)
 
 
 @then("I see the imported vaccination records")
 def step_impl(context):
-    page = context.playwright_page
+    import_page = ImportPage(context.playwright_page)
 
-    expect(page.get_by_text("Completed")).to_be_visible()
+    expect(import_page.status_tag).to_be_visible()
+    expect(import_page.status_tag).to_have_text("Completed")

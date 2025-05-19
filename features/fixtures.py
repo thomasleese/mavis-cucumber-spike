@@ -49,3 +49,4 @@ def playwright_context(context):
 @fixture
 def playwright_page(context):
     context.playwright_page = context.playwright_context.new_page()
+    context.playwright_page.goto("/")
