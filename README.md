@@ -13,6 +13,10 @@ $ uv run playwright install
 Create a `behave.ini` file with the following parameters:
 
 ```ini
+[behave]
+format = allure_behave.formatter:AllureFormatter
+outfiles = allure-results
+
 [behave.userdata]
 base_url = ...
 
@@ -41,4 +45,11 @@ $ uv run ruff format
 $ uv run behave -D browser=firefox
 $ uv run behave -D browser=chromium
 $ uv run behave -D browser=webkit -D "device=iPhone 6"
+```
+
+## Reports
+
+```shell
+$ brew install allure
+$ allure serve
 ```
