@@ -1,4 +1,3 @@
-import allure
 import os
 
 from playwright.sync_api import BrowserType, Playwright
@@ -34,13 +33,3 @@ def browser_type_launch_args(browser_type_launch_args):
     headless = "CI" in os.environ
 
     return {**browser_type_launch_args, "headless": headless}
-
-
-@pytest.fixture(autouse=True)
-def allure_device(device: str):
-    # Allure doesn't support environments with spaces.
-    device_name = device.lower().replace(" ", "_")
-
-    yield
-
-    allure.dynamic.label("device", device_name)

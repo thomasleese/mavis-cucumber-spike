@@ -3,9 +3,11 @@ import os.path
 
 from ..reporting import attach_screenshot
 
+from playwright.sync_api import Page
+
 
 class ChooseImportPage:
-    def __init__(self, page):
+    def __init__(self, page: Page):
         self.page = page
 
         self.vaccination_records_radio = page.get_by_role(
@@ -20,7 +22,7 @@ class ChooseImportPage:
 
 
 class ImportPage:
-    def __init__(self, page):
+    def __init__(self, page: Page):
         self.page = page
 
         self.status_tag = page.get_by_text(
@@ -29,7 +31,7 @@ class ImportPage:
 
 
 class ImportsPage:
-    def __init__(self, page):
+    def __init__(self, page: Page):
         self.page = page
 
         self.import_records_link = page.get_by_role("link", name="Import records")
@@ -40,7 +42,7 @@ class ImportsPage:
 
 
 class UploadImportPage:
-    def __init__(self, page):
+    def __init__(self, page: Page):
         self.page = page
 
         self.upload_button = page.get_by_role("button", name="Upload file")

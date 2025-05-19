@@ -1,7 +1,9 @@
 import allure
 
+from playwright.sync_api import Page
 
-def attach_screenshot(page, name):
+
+def attach_screenshot(page: Page, name: str):
     allure.attach(
         page.screenshot(),
         name=name,
