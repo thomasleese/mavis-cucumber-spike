@@ -1,6 +1,8 @@
 import re
 import os.path
 
+from ..reporting import attach_screenshot
+
 
 class ChooseImportPage:
     def __init__(self, page):
@@ -13,6 +15,7 @@ class ChooseImportPage:
 
     def vaccination_records(self):
         self.vaccination_records_radio.click()
+        attach_screenshot(self.page, "Choose import")
         self.submit_button.click()
 
 
@@ -32,6 +35,7 @@ class ImportsPage:
         self.import_records_link = page.get_by_role("link", name="Import records")
 
     def import_records(self):
+        attach_screenshot(self.page, "Imports")
         self.import_records_link.click()
 
 
@@ -44,4 +48,5 @@ class UploadImportPage:
 
     def upload(self, filename):
         self.upload_button.set_input_files(os.path.join("files", filename))
+        attach_screenshot(self.page, "Upload import")
         self.submit_button.click()

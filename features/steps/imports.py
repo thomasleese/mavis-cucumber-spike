@@ -8,6 +8,7 @@ from mavis.testing.models import (
     ImportsPage,
     UploadImportPage,
 )
+from mavis.testing.reporting import attach_screenshot
 
 
 @when("I import vaccination records from {filename}")
@@ -28,6 +29,8 @@ def step_impl(context, filename=None):
 @then("I see the imported vaccination records")
 def step_impl(context):
     import_page = ImportPage(context.playwright_page)
+
+    attach_screenshot(context.playwright_page, "Import")
 
     expect(import_page.status_tag).to_be_visible()
     expect(import_page.status_tag).to_have_text("Completed")
