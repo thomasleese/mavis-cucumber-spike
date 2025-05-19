@@ -1,0 +1,72 @@
+name: Test
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    name: Test
+
+    strategy:
+      matrix:
+        device:
+          - Desktop Chrome
+          - Desktop Firefox
+          - Desktop Safari
+          - Pixel 7
+          - iPhone 13
+
+    concurrency:
+      group: test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+
+      - name: Install uv
+        run: pip install -U pip uv
+
+      - name: Install playwright
+        run: uv run playwright install --with-deps
+
+      - name: Run tests
+        run: uv run behave -D "device=${{ matrix.device }}"
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          BASIC_AUTH_USERNAME: ${{ secrets.BASIC_AUTH_USERNAME }}
+          BASIC_AUTH_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}
+          ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          NURSE_USERNAME: ${{ secrets.NURSE_USERNAME }}
+          NURSE_PASSWORD: ${{ secrets.NURSE_PASSWORD }}
+          SUPERUSER_USERNAME: ${{ secrets.SUPERUSER_USERNAME }}
+          SUPERUSER_PASSWORD: ${{ secrets.SUPERUSER_PASSWORD }}
+
+      - name: Load test report history
+        uses: actions/checkout@v4
+        continue-on-error: true
+        if: always()
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: gh-pages/${{ matrix.device }}
+
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
+          destination_dir: ${{ matrix.device }}
