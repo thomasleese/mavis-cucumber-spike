@@ -13,7 +13,7 @@ export default defineConfig({
     },
   },
   environments: Object.assign(...[
-    "desktop_chromium",
+    "desktop_chrome",
     "desktop_firefox",
     "desktop_safari",
     "iphone_15",

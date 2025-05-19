@@ -1,11 +1,8 @@
-name: Test
+name: Test and publish
 
 on:
   pull_request:
   workflow_dispatch:
-
-permissions:
-  contents: write
 
 jobs:
   test:
@@ -18,10 +15,9 @@ jobs:
           - Desktop Firefox
           - Desktop Safari
           - Pixel 7
-          - iPhone 13
+          - iPhone 15
 
-    concurrency:
-      group: test
+    permissions: {}
 
     runs-on: ubuntu-latest
 
@@ -36,7 +32,7 @@ jobs:
         run: uv run playwright install --with-deps
 
       - name: Run tests
-        run: uv run behave -D "device=${{ matrix.device }}"
+        run: uv run pytest --device "${{ matrix.device }}"
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           BASIC_AUTH_USERNAME: ${{ secrets.BASIC_AUTH_USERNAME }}
@@ -48,25 +44,44 @@ jobs:
           SUPERUSER_USERNAME: ${{ secrets.SUPERUSER_USERNAME }}
           SUPERUSER_PASSWORD: ${{ secrets.SUPERUSER_PASSWORD }}
 
-      - name: Load test report history
-        uses: actions/checkout@v4
-        continue-on-error: true
-        if: always()
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
         with:
-          ref: gh-pages
-          path: gh-pages
+          name: ${{ matrix.device }}
+          path: allure-results
 
-      - name: Build test report
-        uses: simple-elf/allure-report-action@v1.7
-        if: always()
+  publish:
+    name: Publish
+
+    needs: test
+
+    permissions:
+      contents: write
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v4
         with:
-          gh_pages: gh-pages/${{ matrix.device }}
+          path: allure-results
+          merge-multiple: true
+
+      - uses: actions/setup-node@v4
+        with:
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate Allura report
+        run: npx allure generate allure-results
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
-        if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
-          destination_dir: ${{ matrix.device }}
+          publish_dir: allure-report
