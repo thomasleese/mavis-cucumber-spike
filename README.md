@@ -44,6 +44,6 @@ $ uv run --env-file .env behave -D "device=iPhone 6"
 ## Reports
 
 ```shell
-$ brew install allure
-$ allure serve
+$ npx allure generate allure-results
+$ npx allure open
 ```
