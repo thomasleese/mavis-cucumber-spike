@@ -37,9 +37,8 @@ $ uv run ruff format
 ## Running
 
 ```shell
-$ uv run --env-file .env behave -D browser=firefox
-$ uv run --env-file .env behave -D browser=chromium
-$ uv run --env-file .env behave -D browser=webkit -D "device=iPhone 6"
+$ uv run --env-file .env behave -D "device=Desktop Firefox"
+$ uv run --env-file .env behave -D "device=iPhone 6"
 ```
 
 ## Reports

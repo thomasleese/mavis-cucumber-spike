@@ -9,8 +9,8 @@ from fixtures import (
 
 
 def before_all(context):
-    use_fixture(playwright_browser, context)
     use_fixture(playwright_device, context)
+    use_fixture(playwright_browser, context)
     use_fixture(playwright_context, context)
 
 
