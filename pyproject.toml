@@ -14,3 +14,7 @@ dependencies = [
 dev = [
     "ruff>=0.11.10",
 ]
+
+[tool.behave]
+format = "allure_behave.formatter:AllureFormatter"
+outfiles = "allure-results"

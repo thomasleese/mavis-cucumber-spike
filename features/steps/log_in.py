@@ -1,3 +1,5 @@
+import os
+
 import allure
 from behave import given
 
@@ -16,8 +18,8 @@ def step_impl(context, role=None):
 
     page.get_by_role("link", name="Start now").click()
 
-    username = context.config.userdata[f"{role}_username"]
-    password = context.config.userdata[f"{role}_password"]
+    username = os.environ[f"{role.upper()}_USERNAME"]
+    password = os.environ[f"{role.upper()}_PASSWORD"]
 
     page.get_by_role("textbox", name="Email address").fill(username)
     page.get_by_role("textbox", name="Password").fill(password)

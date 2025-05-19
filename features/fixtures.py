@@ -1,3 +1,5 @@
+import os
+
 from behave import fixture
 from playwright.sync_api import sync_playwright
 
@@ -27,18 +29,16 @@ def playwright_device(context):
 
 @fixture
 def playwright_context(context):
-    userdata = context.config.userdata
-
-    if "basic_auth_username" in userdata and "basic_auth_password" in userdata:
+    if "BASIC_AUTH_USERNAME" in os.environ and "BASIC_AUTH_PASSWORD" in os.environ:
         http_credentials = {
-            "username": userdata["basic_auth_username"],
-            "password": userdata["basic_auth_password"],
+            "username": os.environ["BASIC_AUTH_USERNAME"],
+            "password": os.environ["BASIC_AUTH_PASSWORD"],
         }
     else:
         http_credentials = {}
 
     playwright_context = context.playwright_browser.new_context(
-        base_url=userdata["base_url"],
+        base_url=os.environ["BASE_URL"],
         http_credentials=http_credentials,
         **context.playwright_device,
     )
