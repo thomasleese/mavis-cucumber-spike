@@ -18,7 +18,9 @@ def playwright_browser(context):
     device = context.playwright_device
 
     browser_type = getattr(playwright, device["default_browser_type"])
-    browser = browser_type.launch(headless=False)
+    headless = "CI" in os.environ
+
+    browser = browser_type.launch(headless=headless)
 
     context.playwright_browser = browser
     yield browser
