@@ -41,9 +41,10 @@ $ uv run --env-file .env behave -D "device=Desktop Firefox"
 $ uv run --env-file .env behave -D "device=iPhone 6"
 ```
 
-## Reports
+## Reporting
 
 ```shell
+$ npm install
 $ npx allure generate allure-results
 $ npx allure open
 ```
