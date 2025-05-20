@@ -1,4 +1,4 @@
-Feature: Importing cohorts
+Feature: Importing class lists
   Scenario: Whitespace is normalised
     Given a class list file named class-list.csv exists with:
       | nhs_number          | given_name | family_name  | year_group | address_line_1      |
