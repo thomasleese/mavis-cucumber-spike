@@ -24,6 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
+        with:
+          python-version-file: .tool-versions
 
       - name: Install uv
         run: pip install -U pip uv
