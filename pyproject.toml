@@ -6,6 +6,8 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "allure-pytest-bdd>=2.14.2",
+    "faker>=37.3.0",
+    "nhs-number>=1.3.4",
     "playwright>=1.52.0",
     "pytest>=8.3.5",
     "pytest-bdd>=8.1.0",

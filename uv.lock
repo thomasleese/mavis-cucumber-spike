@@ -79,6 +79,18 @@ wheels = [
 ]
 
 [[package]]
+name = "faker"
+version = "37.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "tzdata" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/97/4b/5354912eaff922876323f2d07e21408b10867f3295d5f917748341cb6f53/faker-37.3.0.tar.gz", hash = "sha256:77b79e7a2228d57175133af0bbcdd26dc623df81db390ee52f5104d46c010f2f", size = 1901376, upload-time = "2025-05-14T15:24:18.039Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ce/99/045b2dae19a01b9fbb23b9971bc04f4ef808e7f3a213d08c81067304a210/faker-37.3.0-py3-none-any.whl", hash = "sha256:48c94daa16a432f2d2bc803c7ff602509699fca228d13e97e379cd860a7e216e", size = 1942203, upload-time = "2025-05-14T15:24:16.159Z" },
+]
+
+[[package]]
 name = "gherkin-official"
 version = "29.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -176,6 +188,8 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "allure-pytest-bdd" },
+    { name = "faker" },
+    { name = "nhs-number" },
     { name = "playwright" },
     { name = "pytest" },
     { name = "pytest-bdd" },
@@ -190,6 +204,8 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "allure-pytest-bdd", specifier = ">=2.14.2" },
+    { name = "faker", specifier = ">=37.3.0" },
+    { name = "nhs-number", specifier = ">=1.3.4" },
     { name = "playwright", specifier = ">=1.52.0" },
     { name = "pytest", specifier = ">=8.3.5" },
     { name = "pytest-bdd", specifier = ">=8.1.0" },
@@ -198,6 +214,15 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [{ name = "ruff", specifier = ">=0.11.10" }]
+
+[[package]]
+name = "nhs-number"
+version = "1.3.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b5/99/c270a4f45df4427bb099e90887839be223758bb6a11cfb40f95d1db9bf37/nhs_number-1.3.4.tar.gz", hash = "sha256:be2bb644aead15a3d7b577d48717d599b85469a101f105efd6effbad1bf70217", size = 7255, upload-time = "2023-07-21T11:29:56.563Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0d/17/a7eeea51fb96473e79b2f76e3e1a902a0b52a8a2e08c5db6236682cf74ed/nhs_number-1.3.4-py3-none-any.whl", hash = "sha256:254b31ffe85ae2290c9325442fb4427c3839f46a049408bb1c1e9c9f36e0c39b", size = 9330, upload-time = "2023-07-21T11:29:55.131Z" },
+]
 
 [[package]]
 name = "packaging"
@@ -408,6 +433,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f6/37/23083fcd6e35492953e8d2aaaa68b860eb422b34627b13f2ce3eb6106061/typing_extensions-4.13.2.tar.gz", hash = "sha256:e6c81219bd689f51865d9e372991c540bda33a0379d5573cddb9a3a23f7caaef", size = 106967, upload-time = "2025-04-10T14:19:05.416Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/8b/54/b1ae86c0973cc6f0210b53d508ca3641fb6d0c56823f288d108bc7ab3cc8/typing_extensions-4.13.2-py3-none-any.whl", hash = "sha256:a439e7c04b49fec3e5d3e2beaa21755cadbbdc391694e28ccdd36ca4a1408f8c", size = 45806, upload-time = "2025-04-10T14:19:03.967Z" },
+]
+
+[[package]]
+name = "tzdata"
+version = "2025.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/95/32/1a225d6164441be760d75c2c42e2780dc0873fe382da3e98a2e1e48361e5/tzdata-2025.2.tar.gz", hash = "sha256:b60a638fcc0daffadf82fe0f57e53d06bdec2f36c4df66280ae79bce6bd6f2b9", size = 196380, upload-time = "2025-03-23T13:54:43.652Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5c/23/c7abc0ca0a1526a0774eca151daeb8de62ec457e77262b66b359c3c7679e/tzdata-2025.2-py2.py3-none-any.whl", hash = "sha256:1a403fada01ff9221ca8044d701868fa132215d84beb92242d9acd2147f667a8", size = 347839, upload-time = "2025-03-23T13:54:41.845Z" },
 ]
 
 [[package]]
